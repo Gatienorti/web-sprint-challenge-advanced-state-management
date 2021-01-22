@@ -1,12 +1,4 @@
 
-export const initialState = {
-}
-
-const reducer = ()=>{
-}
-
-export default reducer;
-
 //Task List:
 //1. Add in the initialState needed to hold: 
 //      - an array of smurfs
@@ -19,3 +11,44 @@ export default reducer;
 //      - The adding a smurf to the smurf list when added into payload
 //      - Setting Error Text
 //      - Any other state changes you see as necessary
+
+export const initialState = {
+    smurfs: [],
+    isLoading: false,
+    error: ""
+}
+const reducer = (state = initialState, action) => {
+    switch (action.type) {
+        case 'FETCH_SMURF_START':
+            return {...state,isLoading: true,}
+        case 'FETCH_SMURF_SUCCESS':
+            return {...state,
+                isLoading: false,
+                smurfs: action.payload,
+                error: ""}
+            case 'FETCH_SMURF_ERROR':
+                return {...state,
+                 isLoading: false,
+                 error: action.payload}
+            case 'ADD_SMURF_START':
+                  return {...state,
+                   isLoading: true}
+            case 'ADD_SMURF_SUCCESS':
+                  return {...state,
+                   isLoading:false,
+                   error: '',
+                   smurfs: action.payload}
+            case 'ADD_SMURF_ERROR':
+                  return {...state,
+                   isLoading: false,
+                   error: action.payload}
+            case 'ADD_FORM_ERROR':
+                    console.log(action.payload)
+                  return {...state,
+                   error: action.payload}
+                default:
+                  return state;
+    }
+}
+
+export default reducer;
